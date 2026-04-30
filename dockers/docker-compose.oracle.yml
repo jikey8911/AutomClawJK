@@ -29,7 +29,7 @@ services:
       - OLLAMA_BASE_URL=http://172.0.0.2:11435
       - DATABASE_URL=postgresql://user:pass@db:5432/automclaw
     depends_on:
-      - openclaw
+      - openclaw_automa_claw_jk
     restart: unless-stopped
     networks:
       - automclaw_net
@@ -44,7 +44,7 @@ services:
     environment:
       - VITE_API_URL=http://http://163.192.114.190:5000
     depends_on:
-      - backend
+      - backend_automa_claw_jk
     restart: unless-stopped
     networks:
       - automclaw_net
