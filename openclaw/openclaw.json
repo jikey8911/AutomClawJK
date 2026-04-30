@@ -38,7 +38,7 @@
     "mode": "merge",
     "providers": {
       "ollama": {
-        "baseUrl": "http://163.192.114.190:11435",
+        "baseUrl": "http://172.17.0.2:11435",
         "apiKey": "${OLLAMA_API_KEY}",
         "api": "ollama",
         "models": [
@@ -193,7 +193,7 @@
         "ollama/glm-4.7-flash": {},
         "ollama/llama3.2:3b": {}
       },
-      "workspace": "F:\\openClow\\.openclaw\\workspace",
+      "workspace": "~/app/AutomClawJK/openclaw/workspace",
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
