@@ -30,6 +30,13 @@ RUN if [ -f requirements.txt ]; then \
 # Exponer el puerto del gateway
 EXPOSE 5000
 
-# Comando para iniciar el gateway de OpenClaw
-# Usamos 'openclaw gateway start' como indica la documentación
-CMD [ "openclaw", "gateway", "start" ]
+# Variables de entorno para configuración
+ENV OPENCLAW_CONFIG_PATH=/app/openclaw/openclaw.json
+ENV OPENCLAW_STATE_DIR=/app/openclaw/state
+
+# Asegurar que el directorio de estado existe
+RUN mkdir -p /app/openclaw/state
+
+# Comando para iniciar el gateway de OpenClaw en primer plano
+# Se omiten 'start' o comandos de servicio para evitar errores en el contenedor
+CMD ["openclaw", "gateway", "--port", "5000", "--bind", "0.0.0.0"]
