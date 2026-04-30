@@ -1,5 +1,5 @@
 services:
-  openclaw:
+  openclaw_oracle_jk:
     build:
       context: ../
       dockerfile: dockers/oracle/openclaw/Dockerfile
