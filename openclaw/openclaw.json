@@ -1,0 +1,32 @@
+{
+  "providers": {
+    "ollama": {
+      "baseUrl": "http://host.docker.internal:11434",
+      "models": {
+        "default": "llama3",
+        "reasoning": "deepseek-coder-v2"
+      }
+    }
+  },
+  "agents": {
+    "orchestrator": {
+      "path": "./agents/orchestrator",
+      "soul": "SOUL.md",
+      "skills": ["exec", "web_search", "browser", "sessions"]
+    },
+    "researcher": {
+      "path": "./agents/researcher",
+      "soul": "SOUL.md",
+      "skills": ["web_search", "browser"]
+    },
+    "optimizer": {
+      "path": "./agents/optimizer",
+      "soul": "SOUL.md",
+      "skills": ["exec", "data_analysis"]
+    }
+  },
+  "gateway": {
+    "port": 5000,
+    "host": "0.0.0.0"
+  }
+}

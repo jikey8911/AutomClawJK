@@ -1,19 +1,31 @@
-FROM python:3.11-slim
+FROM node:22-slim
 
 WORKDIR /app
 
-# Instalar dependencias del sistema para scraping/browser
+# Instalar dependencias del sistema para el navegador y herramientas
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
+    curl \
+    git \
+    python3 \
+    make \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar dependencias de OpenClaw
-COPY openclaw/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Instalar pnpm
+RUN npm install -g pnpm
 
-# Copiar el código fuente
+# Instalar OpenClaw globalmente o localmente
+RUN npm install -g @openclaw/gateway @openclaw/cli
+
+# Copiar configuración y agentes
 COPY ./openclaw /app/openclaw
 
-# Comando por defecto para iniciar el gateway de OpenClaw
-CMD ["python", "-m", "openclaw.gateway"]
+WORKDIR /app/openclaw
+
+# Exponer el puerto del gateway
+EXPOSE 5000
+
+# Comando para iniciar el gateway usando la configuración local
+CMD ["openclaw", "gateway", "start", "--config", "openclaw.json"]
