@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  openclaw:
+    build:
+      context: ../
+      dockerfile: dockers/openclaw/Dockerfile
+    container_name: openclaw_agent
+    volumes:
+      - ../openclaw:/app/openclaw
+    environment:
+      - ENVIRONMENT=development
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ../
+      dockerfile: dockers/backend/Dockerfile
+    container_name: automclaw_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../platform/backend:/app
+    environment:
+      - OPENCLAW_URL=http://openclaw:5000
+    depends_on:
+      - openclaw
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: dockers/frontend/Dockerfile
+    container_name: automclaw_frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ../platform/frontend:/app
+    depends_on:
+      - backend
+    restart: unless-stopped
