@@ -5,7 +5,7 @@ services:
       dockerfile: dockers/oracle/openclaw/Dockerfile
     container_name: openclaw_oracle_jk
     ports:
-      - "11426:5000" # Mapeo de puerto solicitado
+      - "10426:10426" # Mapeo de puerto solicitado
     volumes:
       - ../openclaw:/app/openclaw
     environment:

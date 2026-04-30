@@ -1,32 +1,312 @@
 {
-  "providers": {
-    "ollama": {
-      "baseUrl": "http://host.docker.internal:11434",
-      "models": {
-        "default": "llama3",
-        "reasoning": "deepseek-coder-v2"
+  "meta": {
+    "lastTouchedVersion": "2026.4.5",
+    "lastTouchedAt": "2026-04-07T21:04:46.778Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-04-07T21:04:46.454Z",
+    "lastRunVersion": "2026.4.5",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "openai-codex:default": {
+        "provider": "openai-codex",
+        "mode": "oauth"
+      },
+      "qwen-portal:default": {
+        "provider": "qwen-portal",
+        "mode": "oauth"
+      },
+      "google-antigravity:juanguzmanescandonfp@gmail.com": {
+        "provider": "google-antigravity",
+        "mode": "oauth",
+        "email": "juanguzmanescandonfp@gmail.com"
+      },
+      "google:default": {
+        "provider": "google",
+        "mode": "api_key"
+      },
+      "ollama:default": {
+        "provider": "ollama",
+        "mode": "api_key"
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://163.192.114.190:11435",
+        "apiKey": "${OLLAMA_API_KEY}",
+        "api": "ollama",
+        "models": [
+          {
+            "id": "glm-4.7-flash",
+            "name": "glm-4.7-flash",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192,
+            "api": "ollama"
+          },
+          {
+            "id": "glm-4.7-flash:latest",
+            "name": "glm-4.7-flash:latest",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 202752,
+            "maxTokens": 8192,
+            "api": "ollama"
+          },
+          {
+            "id": "llama3.2:3b",
+            "name": "llama3.2:3b",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 131072,
+            "maxTokens": 8192,
+            "api": "ollama"
+          },
+          {
+            "id": "deepseek-coder:6.7b",
+            "name": "deepseek-coder:6.7b",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 16384,
+            "maxTokens": 8192,
+            "api": "ollama"
+          },
+          {
+            "id": "codellama:latest",
+            "name": "codellama:latest",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 16384,
+            "maxTokens": 8192,
+            "api": "ollama"
+          }
+        ]
+      },
+      "qwen-portal": {
+        "baseUrl": "https://portal.qwen.ai/v1",
+        "apiKey": "qwen-oauth",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "coder-model",
+            "name": "Qwen Coder",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192,
+            "api": "openai-completions"
+          },
+          {
+            "id": "vision-model",
+            "name": "Qwen Vision",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 128000,
+            "maxTokens": 8192,
+            "api": "openai-completions"
+          }
+        ]
+      },
+      "google": {
+        "apiKey": "${GOOGLE_API_KEY}",
+        "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+        "models": []
       }
     }
   },
   "agents": {
-    "orchestrator": {
-      "path": "./agents/orchestrator",
-      "soul": "SOUL.md",
-      "skills": ["exec", "web_search", "browser", "sessions"]
+    "defaults": {
+      "model": {
+        "primary": "ollama/llama3.2:3b",
+        "fallbacks": [
+          "ollama/qwen3:4b",
+          "ollama/codellama:latest"
+        ]
+      },
+      "models": {
+        "ollama/kimi-k2.5:cloud": {},
+        "ollama/llama3.2:latest": {},
+        "ollama/glm-4.7-flash": {},
+        "ollama/llama3.2:3b": {}
+      },
+      "workspace": "F:\\openClow\\.openclaw\\workspace",
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      },
+      "imageGenerationModel": {
+        "primary": "google/gemini-3-pro-image-preview"
+      }
     },
-    "researcher": {
-      "path": "./agents/researcher",
-      "soul": "SOUL.md",
-      "skills": ["web_search", "browser"]
-    },
-    "optimizer": {
-      "path": "./agents/optimizer",
-      "soul": "SOUL.md",
-      "skills": ["exec", "data_analysis"]
+    "list": [
+      {
+        "id": "main",
+        "model": "ollama/llama3.2:3b"
+      }
+    ]
+  },
+  "tools": {
+    "profile": "coding",
+    "web": {
+      "search": {
+        "enabled": true,
+        "provider": "gemini"
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "boot-md": {
+          "enabled": true
+        },
+        "bootstrap-extra-files": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "allowlist",
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "allowFrom": [
+        "8503241862"
+      ],
+      "groupPolicy": "allowlist",
+      "streaming": "partial"
     }
   },
   "gateway": {
     "port": 5000,
-    "host": "0.0.0.0"
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "${GATEWAY_TOKEN}"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "skills": {
+    "entries": {
+      "nano-pdf": {
+        "enabled": false
+      },
+      "goplaces": {
+        "apiKey": "${GOOGLE_PLACES_API_KEY}"
+      },
+      "summarize": {
+        "enabled": true
+      },
+      "notion": {
+        "apiKey": "${NOTION_API_KEY}"
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true,
+        "config": {}
+      },
+      "google": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "${GOOGLE_SEARCH_API_KEY}"
+          }
+        }
+      },
+      "ollama": {
+        "enabled": true
+      }
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
   }
 }

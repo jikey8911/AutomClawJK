@@ -15,11 +15,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar OpenClaw globalmente usando el nombre correcto del paquete
-RUN npm install -g openclaw@latest
+RUN curl -fsSL https://openclaw.ai/install.sh | bash
 
 # Copiar el contenido del directorio openclaw
 COPY ./openclaw /app/openclaw
-
+RUN ./scripts/docker/setup.sh
 WORKDIR /app/openclaw
 
 # Instalar dependencias de Python si existe el archivo requirements.txt
@@ -28,7 +28,7 @@ RUN if [ -f requirements.txt ]; then \
     fi
 
 # Exponer el puerto del gateway
-EXPOSE 5000
+EXPOSE 10426
 
 # Variables de entorno para configuración
 ENV OPENCLAW_CONFIG_PATH=/app/openclaw/openclaw.json
