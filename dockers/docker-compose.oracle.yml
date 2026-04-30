@@ -2,7 +2,7 @@ services:
   openclaw:
     build:
       context: ../
-      dockerfile: dockers/openclaw/Dockerfile
+      dockerfile: dockers/oracle/openclaw/Dockerfile
     container_name: openclaw_oracle_jk
     ports:
       - "11426:5000" # Mapeo de puerto solicitado
@@ -18,7 +18,7 @@ services:
   backend_automa_claw_jk:
     build:
       context: ../
-      dockerfile: dockers/backend/Dockerfile
+      dockerfile: dockers/oracle/backend/Dockerfile
     container_name: backend_oracle
     ports:
       - "5000:8000" # Mapeo de puerto solicitado (Interno 8000 -> Externo 5000)
@@ -29,7 +29,7 @@ services:
       - OLLAMA_BASE_URL=http://172.0.0.2:11435
       - DATABASE_URL=postgresql://user:pass@db:5432/automclaw
     depends_on:
-      - openclaw
+      - openclaw_oracle_jk
     restart: unless-stopped
     networks:
       - automclaw_net
@@ -37,12 +37,12 @@ services:
   frontend_automa_claw_jk:
     build:
       context: ../
-      dockerfile: dockers/frontend/Dockerfile
+      dockerfile: dockers/oracle/frontend/Dockerfile
     container_name: frontend_oracle
     ports:
       - "3000:80" # Mapeo de puerto solicitado
     environment:
-      - VITE_API_URL=http://http://163.192.114.190:5000
+      - VITE_API_URL=http://163.192.114.190:5000
     depends_on:
       - backend_automa_claw_jk
     restart: unless-stopped

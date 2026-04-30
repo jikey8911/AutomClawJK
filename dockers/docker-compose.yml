@@ -4,10 +4,15 @@ services:
       context: ../
       dockerfile: dockers/openclaw/Dockerfile
     container_name: openclaw_agent
+    ports:
+      - "5000:5000"
     volumes:
-      - ../openclaw:/app/openclaw
+      - ../openclaw:/app/openclaw_autom
     environment:
       - ENVIRONMENT=development
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
   backend:
@@ -21,6 +26,9 @@ services:
       - ../platform/backend:/app
     environment:
       - OPENCLAW_URL=http://openclaw:5000
+      - OLLAMA_BASE_URL=http://host.docker.internal:11435
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - openclaw
     restart: unless-stopped
