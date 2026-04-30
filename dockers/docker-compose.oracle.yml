@@ -1,0 +1,54 @@
+services:
+  openclaw_automa_claw_jk:
+    build:
+      context: ../
+      dockerfile: dockers/openclaw/Dockerfile
+    container_name: openclaw_oracle
+    ports:
+      - "11426:5000" # Mapeo de puerto solicitado
+    volumes:
+      - ../openclaw:/app/openclaw
+    environment:
+      - ENVIRONMENT=production
+      - OLLAMA_HOST=http://172.0.0.2:11435
+    restart: unless-stopped
+    networks:
+      - automclaw_net
+
+  backend_automa_claw_jk:
+    build:
+      context: ../
+      dockerfile: dockers/backend/Dockerfile
+    container_name: backend_oracle
+    ports:
+      - "5000:8000" # Mapeo de puerto solicitado (Interno 8000 -> Externo 5000)
+    volumes:
+      - ../platform/backend:/app
+    environment:
+      - OPENCLAW_URL=http://openclaw:5000
+      - OLLAMA_BASE_URL=http://172.0.0.2:11435
+      - DATABASE_URL=postgresql://user:pass@db:5432/automclaw
+    depends_on:
+      - openclaw
+    restart: unless-stopped
+    networks:
+      - automclaw_net
+
+  frontend_automa_claw_jk:
+    build:
+      context: ../
+      dockerfile: dockers/frontend/Dockerfile
+    container_name: frontend_oracle
+    ports:
+      - "3000:80" # Mapeo de puerto solicitado
+    environment:
+      - VITE_API_URL=http://http://163.192.114.190:5000
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - automclaw_net
+
+networks:
+  automclaw_net:
+    driver: bridge
