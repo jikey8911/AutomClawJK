@@ -3,7 +3,7 @@ services:
     build:
       context: ../
       dockerfile: dockers/openclaw/Dockerfile
-    container_name: openclaw_oracle
+    container_name: openclaw_oracle_jk
     ports:
       - "11426:5000" # Mapeo de puerto solicitado
     volumes:
@@ -38,7 +38,7 @@ services:
     build:
       context: ../
       dockerfile: dockers/frontend/Dockerfile
-    container_name: frontend_oracle_jk
+    container_name: frontend_oracle
     ports:
       - "3000:80" # Mapeo de puerto solicitado
     environment:
