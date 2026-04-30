@@ -1,5 +1,5 @@
 services:
-  openclaw_automa_claw_jk:
+  openclaw:
     build:
       context: ../
       dockerfile: dockers/openclaw/Dockerfile
@@ -29,7 +29,7 @@ services:
       - OLLAMA_BASE_URL=http://172.0.0.2:11435
       - DATABASE_URL=postgresql://user:pass@db:5432/automclaw
     depends_on:
-      - openclaw_automa_claw_jk
+      - openclaw
     restart: unless-stopped
     networks:
       - automclaw_net
