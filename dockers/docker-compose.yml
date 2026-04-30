@@ -1,7 +1,5 @@
-version: '3.8'
-
 services:
-  openclaw:
+  openclaw_automa_claw_jk:
     build:
       context: ../
       dockerfile: dockers/openclaw/Dockerfile
@@ -12,7 +10,7 @@ services:
       - ENVIRONMENT=development
     restart: unless-stopped
 
-  backend:
+  backend_automa_claw_jk:
     build:
       context: ../
       dockerfile: dockers/backend/Dockerfile
@@ -27,7 +25,7 @@ services:
       - openclaw
     restart: unless-stopped
 
-  frontend:
+  frontend_automa_claw_jk:
     build:
       context: ../
       dockerfile: dockers/frontend/Dockerfile
