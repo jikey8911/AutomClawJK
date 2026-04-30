@@ -32,4 +32,4 @@ EXPOSE 5000
 
 # Comando para iniciar el gateway de OpenClaw
 # Usamos 'openclaw gateway start' como indica la documentación
-CMD ["openclaw", "gateway", "start", "--config", "openclaw.json"]
+CMD ["openclaw", "gateway", "start", ]
