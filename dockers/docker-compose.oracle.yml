@@ -38,7 +38,7 @@ services:
     build:
       context: ../
       dockerfile: dockers/frontend/Dockerfile
-    container_name: frontend_oracle
+    container_name: frontend_oracle_jk
     ports:
       - "3000:80" # Mapeo de puerto solicitado
     environment:
